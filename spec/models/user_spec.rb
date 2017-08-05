@@ -1,25 +1,27 @@
-require 'rails_helper'
-require 'spec_helper'
+#require 'rails_helper'
+#require 'spec_helper'
 
-describe User do
+RSpec.describe User, type: :model do
   #it "validates the name its not empty" do
     #user = FactoryGirl.create(:user)
     #user.valid?
     #user.errors[:name].should be_empty
   #end
-  before    do
-    @user = User.new(name: "Example User", email: "user@example.com")
-  end
 
-  subject { @user }
 
-  it { should respond_to(:name) }
-  it { should respond_to(:email) }
+  subject { FactoryGirl.create(:user) }
 
-  it { should be_valid }
+ context 'with validation' do
+   it 'checks empty name' do
+     subject.name = nil
+     subject.valid?
+     expect(subject.errors[:name].count).to be > 0
+   end
 
-  describe "when name is not present" do
-    before { @user.name = " " }
-    it { should_not be_valid }
-  end
+   it 'checks empty email' do
+     subject.email = nil
+     subject.valid?
+     expect(subject.errors[:email].count).to be > 0
+   end
+ end
 end
