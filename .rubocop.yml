@@ -8,6 +8,7 @@ AllCops:
   TargetRubyVersion: 2.3
   Exclude:
     - lib/tasks/**/*
+    - config/**/*
 Style/ClassAndModuleChildren:
   EnforcedStyle: compact
 require: rubocop-rspec

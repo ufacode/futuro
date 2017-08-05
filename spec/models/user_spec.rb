@@ -1,27 +1,23 @@
-#require 'rails_helper'
-#require 'spec_helper'
+# frozen_string_literal: true
 
 RSpec.describe User, type: :model do
-  #it "validates the name its not empty" do
-    #user = FactoryGirl.create(:user)
-    #user.valid?
-    #user.errors[:name].should be_empty
-  #end
+  let(:user) { FactoryGirl.build(:user) }
 
+  context 'with validation' do
+    it 'is valid factory' do
+      expect(user.valid?).to be_truthy
+    end
 
-  subject { FactoryGirl.create(:user) }
+    it 'checks empty name' do
+      user.name = nil
+      user.valid?
+      expect(user.errors[:name]).not_to be_empty
+    end
 
- context 'with validation' do
-   it 'checks empty name' do
-     subject.name = nil
-     subject.valid?
-     expect(subject.errors[:name].count).to be > 0
-   end
-
-   it 'checks empty email' do
-     subject.email = nil
-     subject.valid?
-     expect(subject.errors[:email].count).to be > 0
-   end
- end
+    it 'checks empty email' do
+      user.email = nil
+      user.valid?
+      expect(user.errors[:email]).not_to be_empty
+    end
+  end
 end
